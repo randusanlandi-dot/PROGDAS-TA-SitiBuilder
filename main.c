@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+//test
 #define MAXHAPPY 100
 #define MAXHUNGER 100
 #define MAXHEALTH 100
