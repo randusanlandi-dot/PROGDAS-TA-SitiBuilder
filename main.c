@@ -176,6 +176,70 @@ void menuLoop() {
     }
 }
 
+
+
+void afterdaycalculation() {
+	// index
+	int money;
+	float happiness;
+	float hunger;
+	float health;
+
+	// input d-day
+	int totalmoney;
+	int population;
+	float totalhappiness;
+	float totalhunger;
+	float totalhealth;
+	int week;
+	
+	int choice;
+	
+	money += totalmoney;
+	happiness += totalhappiness / population;
+	hunger += totalhunger / population;
+	health += totalhealth / population;
+	
+	if(happiness>100){
+		happiness=100;
+	}
+	if(hunger>100){
+		hunger=100;
+	}
+	if(health>100){
+		health=100;
+	}
+	
+	if (happiness<0){
+		printf("Game Over!\n");
+		printf("Your city happines is below 0!\n");
+		printf("Enter any number to return to main menu: ");
+        scanf("%d", &choice);
+        printf("\n");
+	}
+	if (hunger<0){
+		printf("Game Over!\n");
+		printf("Your city hunger is below 0!\n");
+		printf("Enter any number to return to main menu: ");
+ 		scanf("%d", &choice);
+  		printf("\n");
+	}
+	if (health<0){
+		printf("Game Over!\n");
+		printf("Your city health is below 0!\n");
+		printf("Enter any number to return to main menu: ");
+		scanf("%d", &choice);
+		printf("\n");
+	}
+	if (money<0 && week>=7){
+		printf("Game Over!\n");
+		printf("Your money is below 0 for more than 7 weeks!\n");
+		printf("Enter any number to return to main menu: ");
+    	scanf("%d", &choice);
+    	printf("\n");
+	}
+	
+}
 int main() {
     menuLoop();
     return 0;
