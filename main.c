@@ -168,19 +168,66 @@ void gameLoop() {
 
 void errands(values *v, eBonus *e, index *i){
     int num = rand() % 100 + 1;
-    int check = rand() % 5 + 1;
+    int check = rand() % 4 + 1;
     int check2 = rand() % 3 + 1;
     int failSafe = 0;
+    int choice = 0;
 
     switch (check) {
         case 1: //Hunger
-            if(i->hunger >= num) {
+            if(i->hunger * 100 >= num) {
                 switch(check2){
                     case 1:
+                        printf("You recieve an idea to make a food charity event (300$) to your town.\n What do you do?\n");
+                        printf("1. Make\n2+. Not Make\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 300;
+                            i->hunger += 0.3;
+                            printf("\nYou hosted the charity event, Your people are slightly less hungry!\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 100;
+                            i->hunger -= 0.15;
+                            printf("\nYou didn't host the charity event, as you go on about your day you found a 100$ bill on the ground.\nYour people are slightly more hungry but you are now 100$ richer!\n");
+                        } 
+
                         break;
                     case 2:
+                        printf("You recieve an idea to make a Free Nutritious Meal initiative (400$) to your town's local school.\nWhat do you do?\n");
+                        printf("1. Make\n2+. Not Make\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 400;
+                            i->health -= 0.2;
+                            i->hunger += 0.1;
+                            printf("\nYour students got food poisoning and your people are critizising your decisions!\nHey they're atleast a bit less hungry");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 400;
+                            printf("\nYou decided to keep your tax money, maybe this was for the best.\n");
+                        } 
                         break;
                     case 3:
+                        printf("Your towns food import is taking longer to arrive, your citizens may go hugry but you have the choice to speed it up (300$).\n What do you do?\n");
+                        printf("1. Speed it up\n2+. Dont't speed it up\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 300;
+                            i->hunger += 0.2;
+                            printf("\nYour food managed to arrive on time, Your people are slightly less hungry!\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 200;
+                            i->hunger -= 0.2;
+                            printf("\nYour food arrived late.\n Your people are slightly more hungry.\n");
+                        } 
                         break;
                 }
             } else {
@@ -189,13 +236,56 @@ void errands(values *v, eBonus *e, index *i){
             break;
 
         case 2: //Health
-            if(i->health >= num) {
+            if(i->health * 100 >= num) {
                 switch(check2){
-                    case 1:
+                    case 1: 
+                        printf("Your towns air has been growing rather polluted.\nWould you put some effort in fixing the air pollution (300$)\n");
+                        printf("1. Fix\n2+. Not fix\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 300;
+                            i->health += 0.2;
+                            printf("\nYour town is more habitable!\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 100;
+                            i->health -= 0.2;
+                            printf("\nYour air is making your citizens more unhealthy.\n");
+                        } 
                         break;
-                    case 2:
+                    case 2: 
+                        printf("Oh no!\nYour towns factories dumped waste into your water supply! Are you going to save it (400$)?\n");
+                        printf("1. Save\n2+. Not save\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 400;
+                            i->health += 0.2;
+                            printf("\nYour towns water supply is saved!\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 150;
+                            i->health -= 0.35;
+                            printf("\nYour towns drinking water is cooked.\n");
+                        } 
                         break;
-                    case 3:
+                    case 3: 
+                        printf("A Virus broke out in your city!.\nYou need to develop a vaccine to cure it (350$)!\n");
+                        printf("1. Develop\n2+. Do not develop\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 350;
+                            printf("\nThe virus slowly disappeared!\n");
+                        } 
+                        else if (choice >= 2) {
+                            i->health -= 0.2;
+                            printf("\nYour town became a breeding den for the virus.\n");
+                        } 
                         break;
                 }
             } else{
@@ -204,41 +294,111 @@ void errands(values *v, eBonus *e, index *i){
             break;
 
         case 3: //Housing
-            if(i->health >= num) {
+            if(i->housingBackLog * 100 >= num) {
                 switch(check2){
-                    case 1:
+                    case 1: // homeless shelter
+                        printf("Someone raised the idea of developing more homeless shelters\n Do you agree with this idea (400$)\n");
+                        printf("1. Agree\n2+. Not agree\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 400;
+                            i->housingBackLog += 0.4;
+                            printf("\nThe people loved your decision!\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 300;
+                            printf("\nYou got a bit richer by not doing that.\n");
+                        } 
+                        break;
                         break;
                     case 2:
+                        printf("Some people think that the homeless are a disturbance and should be off the streets\n They're telling you to a Do you agree with this idea (400$)\n");
+                        printf("1. Agree\n2+. Not agree\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            i->health -= 0.15;
+                            printf("\nYour homeless population became less healthy.\n");
+                        } 
+                        else if (choice >= 2) {
+                            printf("\nYou did the bare minimum.\n");
                         break;
-                    case 3:
+                    case 3: 
+                        printf("An earthquake just happened in your city\nThey're looking at you for recontructions(350$) do you do it?\n");
+                        printf("1. Yes\n2+. No\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 350;
+                            printf("\nYour houses are bigger and better.\n");
+                        } 
+                        else if (choice >= 2) {
+                            i->housingBackLog -= 0.3;
+                            printf("\nThe houses were not saved.\n");
+                        }
                         break;
+                    }
                 }
             } else{
                 failSafe = 1;
             }
             break;
         case 4: //Employment
-            if(i->health >= num) {
+            if(i->employment * 100 >= num) {
                 switch(check2){
-                    case 1:
+                    case 1: 
+                        printf("You had an idea to open more jobs for your people(200$)\nDo you follow through with this idea?\n");
+                        printf("1. Yes\n2+. No\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 200;
+                            i->employment += 0.15;
+                            printf("\nYour people are more employed.\n");
+                        } 
+                        else if (choice >= 2) {
+                            v->money += 100;
+                            i->employment -= 0.1;
+                            printf("\nThe people are still yearning for employment.\n");
+                        }
                         break;
-                    case 2:
+                    case 2: 
+                        printf("Due to the decreasing education rate your unemployment rate is increasing\nDo you try to fix your education system(250$)\n");
+                        printf("1. Yes\n2+. No\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            v->money -= 250;
+                            i->employment += 0.2;
+                            printf("\nYour people are more employed.\n");
+                        } 
+                        else if (choice >= 2) {
+                            i->employment -= 0.2;
+                            printf("\nThe people are still under educated.\n");
+                        }
                         break;
-                    case 3:
-                        break;
-                }
-            } else{
-                failSafe = 1;
-            }
-            break;
-        case 5: //Happiness
-            if(i->health >= num) {
-                switch(check2){
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
+                    case 3: 
+                        printf("The city needs to make a new public holiday to comemorrate an event, but this will lead to people not working\nDo you follow through with this idea?\n");
+                        printf("1. Yes\n2+. No\n");
+                        printf("Input Choice: ");
+                        scanf("%d", choice);
+
+                        if(choice == 1) {
+                            i->employment -= 0.15;
+                            i->health += 0.1;
+                            printf("\nYour people had a nice holiday increasing their health.\n");
+                        } 
+                        else if (choice >= 2) {
+                            i->employment += 0.1;
+                            i->health -= 0.15;
+                            printf("\nThe people are still doing their jobs.\n");
+                        }
                         break;
                 }
             } else{
@@ -249,29 +409,117 @@ void errands(values *v, eBonus *e, index *i){
 
     if(failSafe == 1){
         switch(num) {
-            case 0 ... 9:
+            case 0 ... 19: // people want more variety and junk food (hunger and health)
+                printf("Your people wants more convinient junk food access\nDo you follow through with this idea?\n");
+                printf("1. Yes\n2+. No\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                if(choice == 1) {
+                    i->health -= 0.15;
+                    i->hunger += 0.15;
+                    printf("\nYour peoples tummy are more full but they are less healthy.\n");
+                } 
+                else if (choice >= 2) {
+                    i->health += 0.15;
+                    i->hunger -= 0.15;
+                    printf("\nYour people are not satisfied but they are more healthy.\n");
+                }
                 break;
-            case 10 ... 19:
+            case 20 ... 49: // Someone wants to make a data center (increase job, lowers housing)
+                printf("Someone wants to make a data center but in the process will need to tear down some housing\nDo you follow through with this idea?\n");
+                printf("1. Yes\n2+. No\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                if(choice == 1) {
+                    i->housingBackLog -= 0.15;
+                    i->employment += 0.15;
+                    printf("\nYour peoples have more jobs but less housing.\n");
+                } 
+                else if (choice >= 2) {
+                    i->housingBackLog += 0.15;
+                    i->employment -= 0.15;
+                    printf("\nYour people have live another day without a data center.\n");
+                }
                 break;
-            case 20 ... 29:
+            case 50 ... 79: // better work conditions (health and employment)
+                printf("Your people held a protest for better workers right\nDo you give them what they want?\n");
+                printf("1. Yes\n2+. No\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                if(choice == 1) {
+                    i->health += 0.15;
+                    i->employment -= 0.15;
+                    printf("\nYour people became healthier but less work is being done.\n");
+                } 
+                else if (choice >= 2) {
+                    i->health -= 0.15;
+                    i->employment += 0.15;
+                    printf("\nYour people are not satisfied but they are working more.\n");
+                }
                 break;
-            case 30 ... 39:
+            case 80 ... 90: // weather home (housing and health)
+                printf("Your contruction workers feel overworked but you need buildings to be made before a deadline\nDo you try to push them more?\n");
+                printf("1. Yes\n2+. No\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                if(choice == 1) {
+                    i->health -= 0.15;
+                    i->housingBackLog += 0.15;
+                    printf("\nThe deadline was met but your workers became sick.\n");
+                } 
+                else if (choice >= 2) {
+                    i->health += 0.15;
+                    i->housingBackLog -= 0.15;
+                    printf("\nThe deadline wasnt met but your workers are healthy.\n");
+                }
                 break;
-            case 40 ... 49:
+            case 91 ... 95: // longer lunch breaks (hunger and employment)
+                printf("The people want longer lunch breaks\nDo you follow through with this idea?\n");
+                printf("1. Yes\n2+. No\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                if(choice == 1) {
+                    i->employment -= 0.15;
+                    i->hunger += 0.15;
+                    printf("\nYour people have more time to eat! but less time to work.\n");
+                } 
+                else if (choice >= 2) {
+                    i->employment += 0.15;
+                    i->hunger -= 0.15;
+                    printf("\nYour people are not satisfied but they are working more.\n");
+                }
                 break;
-            case 50 ... 59:
-                break;
-            case 60 ... 69:
-                break;
-            case 70 ... 79:
-                break;
-            case 80 ... 89:
-                break;
-            case 90 ... 99:
+            case 96 ... 99:
+                printf("A Blessing from Cyrene has blessed your town\n");
+                printf("Do you accept the gift?\n");
+                printf("1+. Accept gift\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                i->employment += 0.2;
+                i->health += 0.2;
+                i->housingBackLog += 0.2;
+                i->hunger += 0.2;
+
                 break;
             case 100:
-                printf("OH NO!!! KHASLANA HAS LAUNCEHD A METEOR ON YOUR TOWN WITH E1 CERYDRA!");
-                
+                printf("OH NO!!! KHASLANA WITH E1 CERYDRA HAS LAUNCEHD A METEOR ON YOUR TOWN!\n");
+                printf("MAYOR QUICK WHAT DO WE DO???\n");
+                printf("1. Accept fate\n2. Option 1\n3+. Option 2\n");
+                printf("Input Choice: ");
+                scanf("%d", choice);
+
+                i->employment = 0;
+                i->health = 0;
+                i->housingBackLog = 0;
+                i->hunger = 0;
+
+                printf("\n Your town got destroyed :(\n");
                 break;
         }
     }
