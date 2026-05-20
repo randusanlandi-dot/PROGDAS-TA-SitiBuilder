@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #define MAXHAPPY 100
 #define MAXHUNGER 100
@@ -19,25 +20,44 @@ const char* jabodetabekList[] = {
 
 typedef struct {
     char Name[50];
-    int Hunger;
-    int Happiness;
-    int Health;
+    int Food;
+    int HealthCare;
     int Housing;
-    int MaxEmployee;
+    int Job;
     int Income;
     int Requirement;
     int Cost;
 } Facility;
 
-Facility createFacility(const char* name, int hunger, int happiness, int health, int housing, int maxEmployee, int income, int requirement, int cost) {
+typedef struct {
+    int money;
+} values;
+
+// bonus values from errands
+typedef struct {
+    float eFood;
+    float eHealthcare;
+    float eHousing;
+    float eJob;
+} eBonus;
+
+// index
+typedef struct {
+    float hunger;
+    float health;
+    float housingBackLog;
+    float employment;
+    float happiness;
+} index;
+
+Facility createFacility(const char* name, int food, int healthcare, int housing, int job, int income, int requirement, int cost) {
     Facility f;
     strncpy(f.Name, name, 50);
     f.Name[50] = '\0';
-    f.Hunger = hunger;
-    f.Happiness = happiness;
-    f.Health = health;
+    f.Food = food;
+    f.HealthCare = healthcare;
     f.Housing = housing;
-    f.MaxEmployee = maxEmployee;
+    f.Job = job;
     f.Income = income;
     f.Requirement = requirement;
     f.Cost = cost;
@@ -81,16 +101,27 @@ void printHowToPlay() {
 }
 
 void gameLoop() {
+    // starting values
     Facility facilities[MAXFACILITIES];
     char cityName[100];
     int facilityCount = 0;
     int population = 10;
-    int happiness = 50;
-    int hunger = 50;
-    int health = 50;
-    int day = 1;
-    int money = 500;
+    int week = 1;
     int jabodetabek = 0;
+
+    // totalvalues
+    float food = 0;
+    float healthcare = 0;
+    float housing = 0;
+    float job = 0;
+
+    // errands
+    values cityValues = {0};
+    eBonus errandBonus = {0};
+    index cityIndex = {0};
+
+    cityValues.money = 500;
+
     int choice;
 
     printf("--------------\n");
@@ -127,14 +158,126 @@ void gameLoop() {
         printf("\n");
     }
 
-    facilities[facilityCount++] = createFacility("City Hall", 0, -20, 0, 0, 5, 50, 0, 0);
+    facilities[facilityCount++] = createFacility("City Hall", 0, 0, 0, 5, 50, 0, 0);
     
     while (1) {
-        printf("---DAY %d---\n\n", day);
-
+        printf("---WEEK %d---\n\n", week);
         break;
     }
 }
+
+void errands(values *v, eBonus *e, index *i){
+    int num = rand() % 100 + 1;
+    int check = rand() % 5 + 1;
+    int check2 = rand() % 3 + 1;
+    int failSafe = 0;
+
+    switch (check) {
+        case 1: //Hunger
+            if(i->hunger >= num) {
+                switch(check2){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            } else {
+                failSafe = 1;
+            }
+            break;
+
+        case 2: //Health
+            if(i->health >= num) {
+                switch(check2){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            } else{
+                failSafe = 1;
+            }
+            break;
+
+        case 3: //Housing
+            if(i->health >= num) {
+                switch(check2){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            } else{
+                failSafe = 1;
+            }
+            break;
+        case 4: //Employment
+            if(i->health >= num) {
+                switch(check2){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            } else{
+                failSafe = 1;
+            }
+            break;
+        case 5: //Happiness
+            if(i->health >= num) {
+                switch(check2){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            } else{
+                failSafe = 1;
+            }
+            break;
+    }
+
+    if(failSafe == 1){
+        switch(num) {
+            case 0 ... 9:
+                break;
+            case 10 ... 19:
+                break;
+            case 20 ... 29:
+                break;
+            case 30 ... 39:
+                break;
+            case 40 ... 49:
+                break;
+            case 50 ... 59:
+                break;
+            case 60 ... 69:
+                break;
+            case 70 ... 79:
+                break;
+            case 80 ... 89:
+                break;
+            case 90 ... 99:
+                break;
+            case 100:
+                printf("OH NO!!! KHASLANA HAS LAUNCEHD A METEOR ON YOUR TOWN WITH E1 CERYDRA!");
+                
+                break;
+        }
+    }
+}
+
+
 
 void menuLoop() {
     int choice;
@@ -167,6 +310,7 @@ void menuLoop() {
 }
 
 int main() {
+    srand(time(NULL));
     menuLoop();
     return 0;
 }
