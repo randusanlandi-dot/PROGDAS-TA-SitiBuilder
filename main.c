@@ -19,25 +19,23 @@ const char* jabodetabekList[] = {
 
 typedef struct {
     char Name[50];
-    int Hunger;
-    int Happiness;
-    int Health;
+    int Food;
+    int HealthCare;
     int Housing;
-    int MaxEmployee;
+    int Job;
     int Income;
     int Requirement;
     int Cost;
 } Facility;
 
-Facility createFacility(const char* name, int hunger, int happiness, int health, int housing, int maxEmployee, int income, int requirement, int cost) {
+Facility createFacility(const char* name, int food, int healthcare, int housing, int job, int income, int requirement, int cost) {
     Facility f;
     strncpy(f.Name, name, 50);
     f.Name[50] = '\0';
-    f.Hunger = hunger;
-    f.Happiness = happiness;
-    f.Health = health;
+    f.Food = food;
+    f.HealthCare = healthcare;
     f.Housing = housing;
-    f.MaxEmployee = maxEmployee;
+    f.Job = job;
     f.Income = income;
     f.Requirement = requirement;
     f.Cost = cost;
@@ -81,16 +79,28 @@ void printHowToPlay() {
 }
 
 void gameLoop() {
+    // starting values
     Facility facilities[MAXFACILITIES];
     char cityName[100];
     int facilityCount = 0;
     int population = 10;
-    int happiness = 50;
-    int hunger = 50;
-    int health = 50;
-    int day = 1;
+    int week = 1;
     int money = 500;
     int jabodetabek = 0;
+
+    // totalvalues
+    float food;
+    float healthcare;
+    float housing;
+    float job;
+
+    // index
+    float hunger;
+    float health;
+    float housingBackLog;
+    float employment;
+    float happiness;
+
     int choice;
 
     printf("--------------\n");
@@ -127,10 +137,10 @@ void gameLoop() {
         printf("\n");
     }
 
-    facilities[facilityCount++] = createFacility("City Hall", 0, -20, 0, 0, 5, 50, 0, 0);
+    facilities[facilityCount++] = createFacility("City Hall", 0, 0, 0, 5, 50, 0, 0);
     
     while (1) {
-        printf("---DAY %d---\n\n", day);
+        printf("---WEEK %d---\n\n", week);
 
         break;
     }
