@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-//test
+
 #define MAXHAPPY 100
-#define MAXHUNGER 100
+#define MAXFOOD 100
 #define MAXHEALTH 100
 #define MAXFACILITIES 1000
 
@@ -19,8 +19,7 @@ const char* jabodetabekList[] = {
 
 typedef struct {
     char Name[50];
-    int Hunger;
-    int Happiness;
+    int Food;
     int Health;
     int Housing;
     int MaxEmployee;
@@ -29,12 +28,11 @@ typedef struct {
     int Cost;
 } Facility;
 
-Facility createFacility(const char* name, int hunger, int happiness, int health, int housing, int maxEmployee, int income, int requirement, int cost) {
+Facility createFacility(const char* name, int food, int health, int housing, int maxEmployee, int income, int requirement, int cost) {
     Facility f;
     strncpy(f.Name, name, 50);
     f.Name[50] = '\0';
-    f.Hunger = hunger;
-    f.Happiness = happiness;
+    f.Food = food;
     f.Health = health;
     f.Housing = housing;
     f.MaxEmployee = maxEmployee;
@@ -68,12 +66,12 @@ void printHowToPlay() {
     printf("-------------------------\n");
     printf(" How to play SitiBuilder\n");
     printf("-------------------------\n\n");
-    printf("The simulator runs on a day-to-day basis where you will encounter scenarios\n");
-    printf("each day. As the Mayor, you are tasked to respond to each scenario according\n");
+    printf("The simulator runs on a week-to-week basis where you will encounter scenarios\n");
+    printf("each week. As the Mayor, you are tasked to respond to each scenario according\n");
     printf("to you and your city's needs.\n\n");
     printf("You will also have the opportunity to build certain facilities using your\n");
     printf("collected money to keep the town growing.\n\n");
-    printf("Highscores will be kept (hopefully) in the form of days and population size,\n\n");
+    printf("Highscores will be kept (hopefully) in the form of weeks and population size,\n\n");
 
     printf("Enter any number to return to main menu: ");
     scanf("%d", &choice);
@@ -85,10 +83,9 @@ void gameLoop() {
     char cityName[100];
     int facilityCount = 0;
     int population = 10;
-    int happiness = 50;
-    int hunger = 50;
+    int food = 50;
     int health = 50;
-    int day = 1;
+    int week = 1;
     int money = 500;
     int jabodetabek = 0;
     int choice;
@@ -97,7 +94,7 @@ void gameLoop() {
     printf(" Introduction\n");
     printf("--------------\n\n");
     
-    printf("Welcome to your city! It's your first day as a mayor.\n");
+    printf("Welcome to your city! It's your first week as a mayor.\n");
     printf("Your first job is to name your brand new city!\n");
     printf("What is the name of your city?: ");
     scanf(" %99[^\n]", cityName);
@@ -127,14 +124,44 @@ void gameLoop() {
         printf("\n");
     }
 
-    facilities[facilityCount++] = createFacility("City Hall", 0, -20, 0, 0, 5, 50, 0, 0);
-    
-    while (1) {
-        printf("---DAY %d---\n\n", day);
+    while (1) { //RAISA WAS HERE
+        int energy = 5;
+        int level = 1; //ngaruh ke randomnya
+        int errands = 2; 
+        printf("---WEEK %d---\n\n", week);
 
         break;
     }
 }
+
+int Random(int Max) {
+    return (rand() % Max)+ 1;
+}
+
+void menuGame(int energy, int week, int errands, int level) {
+    int action;
+    printf("---WEEK %d---\n\n", week);
+    errands += Random(level); //level player ngaruh ke randomnya
+    while (errands > 0){
+        printf("What will you do Mayor?\n");
+        printf("Errands : %d\n", errands);
+        printf("Energy : %d\n", energy);
+        printf("-----------------------");
+        printf(" 1. Do Errands.");
+        printf(" 2. Do Research");
+        printf(" 3. Build Facilities");
+        printf("Select : ");
+        scanf("%d", &action);
+        printf("\n");
+        if (action == 1);
+
+        else if (action == 2);
+        else if (action == 3);
+        else {
+            printf("Invalid action!");
+        };
+        }
+    }
 
 void menuLoop() {
     int choice;
@@ -170,3 +197,10 @@ int main() {
     menuLoop();
     return 0;
 }
+
+/*
+Game Loop rencana : 
+1. Introduction Game
+2. LOOP WHILE Real game
+3. Break if 
+*/
